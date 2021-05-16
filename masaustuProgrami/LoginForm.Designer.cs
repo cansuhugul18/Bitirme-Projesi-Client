@@ -102,7 +102,7 @@ namespace masaustuProgrami
             // 
             // roundedTextBox2
             // 
-            this.roundedTextBox2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.roundedTextBox2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.roundedTextBox2.Location = new System.Drawing.Point(187, 225);
             this.roundedTextBox2.MaxLength = 20;
             this.roundedTextBox2.Name = "roundedTextBox2";
@@ -113,7 +113,7 @@ namespace masaustuProgrami
             // 
             // roundedTextBox1
             // 
-            this.roundedTextBox1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.roundedTextBox1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.roundedTextBox1.Location = new System.Drawing.Point(167, 149);
             this.roundedTextBox1.MaxLength = 20;
             this.roundedTextBox1.Name = "roundedTextBox1";
