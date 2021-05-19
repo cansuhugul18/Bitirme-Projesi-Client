@@ -1,6 +1,6 @@
 ﻿namespace masaustuProgrami
 {
-    partial class Form
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -151,7 +151,6 @@
             this.textboxOdaId.Name = "textboxOdaId";
             this.textboxOdaId.Size = new System.Drawing.Size(149, 20);
             this.textboxOdaId.TabIndex = 20;
-            this.textboxOdaId.Text = "1";
             // 
             // btnmicrophone
             // 
@@ -188,7 +187,7 @@
             this.FlowLayoutPanel.Size = new System.Drawing.Size(601, 439);
             this.FlowLayoutPanel.TabIndex = 23;
             // 
-            // Form
+            // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(865, 463);
             this.Controls.Add(this.FlowLayoutPanel);
@@ -202,7 +201,7 @@
             this.Controls.Add(this.ChatBoxGroupBox);
             this.Controls.Add(this.BtnResimAc);
             this.DoubleBuffered = true;
-            this.Name = "Form";
+            this.Name = "MainForm";
             this.Text = "İstemci";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
             this.Load += new System.EventHandler(this.Form_Load);

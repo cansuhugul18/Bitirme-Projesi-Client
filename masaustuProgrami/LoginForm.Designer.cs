@@ -34,9 +34,9 @@ namespace masaustuProgrami
             this.KullaniciAdiLabel = new System.Windows.Forms.Label();
             this.OdaIdLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.roundedButton1 = new masaustuProgrami.Views.Events.RoundedButton(this.components);
-            this.roundedTextBox2 = new masaustuProgrami.Views.RoundedTextBox(this.components);
-            this.roundedTextBox1 = new masaustuProgrami.Views.RoundedTextBox(this.components);
+            this.KatilRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
+            this.OdaIdTextBox = new masaustuProgrami.Views.RoundedTextBox(this.components);
+            this.KullaniciAdiTextBox = new masaustuProgrami.Views.RoundedTextBox(this.components);
             this.SuspendLayout();
             // 
             // ProgramAdiLabel
@@ -88,39 +88,40 @@ namespace masaustuProgrami
             this.label1.TabIndex = 8;
             this.label1.Text = "v.0.1.0";
             // 
-            // roundedButton1
+            // KatilRoundedButton
             // 
-            this.roundedButton1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.roundedButton1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.roundedButton1.Location = new System.Drawing.Point(224, 281);
-            this.roundedButton1.Name = "roundedButton1";
-            this.roundedButton1.Radius = 15;
-            this.roundedButton1.Size = new System.Drawing.Size(127, 40);
-            this.roundedButton1.TabIndex = 7;
-            this.roundedButton1.Text = "Katıl";
-            this.roundedButton1.UseVisualStyleBackColor = true;
+            this.KatilRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.KatilRoundedButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.KatilRoundedButton.Location = new System.Drawing.Point(224, 281);
+            this.KatilRoundedButton.Name = "KatilRoundedButton";
+            this.KatilRoundedButton.Radius = 15;
+            this.KatilRoundedButton.Size = new System.Drawing.Size(127, 40);
+            this.KatilRoundedButton.TabIndex = 7;
+            this.KatilRoundedButton.Text = "Katıl";
+            this.KatilRoundedButton.UseVisualStyleBackColor = true;
+            this.KatilRoundedButton.Click += new System.EventHandler(this.KatilRoundedButton_Click);
             // 
-            // roundedTextBox2
+            // OdaIdTextBox
             // 
-            this.roundedTextBox2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.roundedTextBox2.Location = new System.Drawing.Point(187, 225);
-            this.roundedTextBox2.MaxLength = 20;
-            this.roundedTextBox2.Name = "roundedTextBox2";
-            this.roundedTextBox2.Radius = 15;
-            this.roundedTextBox2.Size = new System.Drawing.Size(214, 31);
-            this.roundedTextBox2.TabIndex = 6;
-            this.roundedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.OdaIdTextBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.OdaIdTextBox.Location = new System.Drawing.Point(187, 225);
+            this.OdaIdTextBox.MaxLength = 20;
+            this.OdaIdTextBox.Name = "OdaIdTextBox";
+            this.OdaIdTextBox.Radius = 15;
+            this.OdaIdTextBox.Size = new System.Drawing.Size(214, 31);
+            this.OdaIdTextBox.TabIndex = 6;
+            this.OdaIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // roundedTextBox1
+            // KullaniciAdiTextBox
             // 
-            this.roundedTextBox1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.roundedTextBox1.Location = new System.Drawing.Point(167, 149);
-            this.roundedTextBox1.MaxLength = 20;
-            this.roundedTextBox1.Name = "roundedTextBox1";
-            this.roundedTextBox1.Radius = 15;
-            this.roundedTextBox1.Size = new System.Drawing.Size(254, 31);
-            this.roundedTextBox1.TabIndex = 5;
-            this.roundedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.KullaniciAdiTextBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.KullaniciAdiTextBox.Location = new System.Drawing.Point(167, 149);
+            this.KullaniciAdiTextBox.MaxLength = 20;
+            this.KullaniciAdiTextBox.Name = "KullaniciAdiTextBox";
+            this.KullaniciAdiTextBox.Radius = 15;
+            this.KullaniciAdiTextBox.Size = new System.Drawing.Size(254, 31);
+            this.KullaniciAdiTextBox.TabIndex = 5;
+            this.KullaniciAdiTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // LoginForm
             // 
@@ -130,9 +131,9 @@ namespace masaustuProgrami
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(578, 364);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.roundedButton1);
-            this.Controls.Add(this.roundedTextBox2);
-            this.Controls.Add(this.roundedTextBox1);
+            this.Controls.Add(this.KatilRoundedButton);
+            this.Controls.Add(this.OdaIdTextBox);
+            this.Controls.Add(this.KullaniciAdiTextBox);
             this.Controls.Add(this.OdaIdLabel);
             this.Controls.Add(this.KullaniciAdiLabel);
             this.Controls.Add(this.ProgramAdiLabel);
@@ -152,9 +153,9 @@ namespace masaustuProgrami
         private System.Windows.Forms.Label ProgramAdiLabel;
         private System.Windows.Forms.Label KullaniciAdiLabel;
         private System.Windows.Forms.Label OdaIdLabel;
-        private Views.RoundedTextBox roundedTextBox1;
-        private Views.RoundedTextBox roundedTextBox2;
-        private Views.Events.RoundedButton roundedButton1;
+        private Views.RoundedTextBox KullaniciAdiTextBox;
+        private Views.RoundedTextBox OdaIdTextBox;
+        private Views.Events.RoundedButton KatilRoundedButton;
         private System.Windows.Forms.Label label1;
     }
 }

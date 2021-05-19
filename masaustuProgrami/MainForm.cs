@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace masaustuProgrami
 {
-    public partial class Form : System.Windows.Forms.Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
         #region Degiskenler
 
@@ -35,7 +35,7 @@ namespace masaustuProgrami
 
         #region Yapıcı Method
 
-        public Form()
+        public MainForm()
         {
             instance = this;
 

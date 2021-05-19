@@ -17,6 +17,12 @@ namespace masaustuProgrami
             InitializeComponent();
         }
 
+        private void KatilRoundedButton_Click(object sender, EventArgs e)
+        {
+            if (KullaniciAdiTextBox.Text == "" || OdaIdTextBox.Text == "")
+                return;
+        
 
+        }
     }
 }
