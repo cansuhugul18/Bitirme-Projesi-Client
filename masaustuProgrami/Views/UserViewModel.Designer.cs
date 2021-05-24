@@ -53,14 +53,17 @@ namespace masaustuProgrami.Views
             // 
             // PictureBox
             // 
+            this.PictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.PictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PictureBox.Location = new System.Drawing.Point(0, 0);
             this.PictureBox.Name = "PictureBox";
+            this.PictureBox.Padding = new System.Windows.Forms.Padding(8);
             this.PictureBox.Size = new System.Drawing.Size(318, 182);
+            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.PictureBox.TabIndex = 1;
             this.PictureBox.TabStop = false;
-            this.PictureBox.Visible = false;
             this.PictureBox.MouseEnter += new System.EventHandler(this.Container_MouseEnter);
             this.PictureBox.MouseLeave += new System.EventHandler(this.Container_MouseLeave);
             // 

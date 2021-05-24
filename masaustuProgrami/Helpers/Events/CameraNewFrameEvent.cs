@@ -9,6 +9,7 @@ namespace masaustuProgrami.Helpers.Events
     {
         #region Properties
 
+
         public Image Image { get; private set; }
 
         #endregion

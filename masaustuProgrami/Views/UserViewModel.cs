@@ -118,8 +118,9 @@ namespace masaustuProgrami.Views
 
         public void ShowImage(Image image)
         {
-            Console.WriteLine("OK");
-
+           //image.Save(@"C:\Users\Cansu\Desktop\b.png");
+           //return;
+           //Console.WriteLine("OK");
             PictureBox.BeginInvoke((MethodInvoker)delegate
             {
                 //PictureBox.Image?.Dispose();

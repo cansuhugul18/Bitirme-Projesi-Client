@@ -90,44 +90,54 @@ namespace masaustuProgrami
 
         #region Events
 
-        private void BtnbaglanClick(object sender, EventArgs e)
+        private void btnmicrophone_Click(object sender, EventArgs e)
         {
-            btnbaglan.Enabled = false;
+            if (!micState)
+            {
+                micState = true;
+                btnmicrophone.Text = "Mikrofonu Kapat";
 
-            UserConnected();
+                Invoke(new Action(() => SoundHelper.Instance.StartMic()));
+            }
+            else
+            {
+                micState = false;
+                btnmicrophone.Text = "Mikrofon Aç";
+
+                Invoke(new Action(() => SoundHelper.Instance.StopMic()));
+            }
+        }
+
+        public void Baglan(long roomId, string username)
+        {
+            UserConnected(roomId, username);
 
             if (!Client.IsConnected)
                 Client.Connect();
+            
             else
                 Client.Disconnect();
-
         }
-
-        public void UserConnected()
+        public void UserConnected(long roomId, string username)
         {
             ID = Convert.ToInt64(new Random().Next());
 
-            UserInfo = new UserInfo(ID, Convert.ToInt64(textboxOdaId.Text), textboxKullaniciadi.Text);
+            UserInfo = new UserInfo(ID, roomId, username);
         }
 
         private void ClientOnConnectionChanged(bool state)
         {
             if (state)
             {
-                //CameraGroupBox.Enabled = true;
                 ChatBoxGroupBox.Enabled = true;
                 BtnResimAc.Enabled = true;
                 OpenCloseCameraButton.Enabled = true;
                 btnmicrophone.Enabled = true;
 
-                btnbaglan.Text = "Bağlantıyı Kes";
-                btnbaglan.Enabled = true;
-
                 Client.Send(DataTypes.UserInfo, UserInfo);
             }
             else
             {
-                //CameraGroupBox.Enabled = false;
                 ChatBoxGroupBox.Enabled = false;
                 BtnResimAc.Enabled = false;
                 OpenCloseCameraButton.Enabled = false;
@@ -136,8 +146,6 @@ namespace masaustuProgrami
                 textboxMesaj.Clear();
                 RichTextBox.Clear();
 
-                btnbaglan.Text = "Bağlan";
-                btnbaglan.Enabled = true;
 
                 if (CameraHelper.IsOpen)
                     CameraHelper.Close();
@@ -176,8 +184,6 @@ namespace masaustuProgrami
 
         private void ClientOnDataRead(HeaderData headerData, object data)
         {
-            Console.WriteLine("LL: " + headerData.DataType);
- 
             switch (headerData.DataType)
             {
                 case DataTypes.None:
@@ -190,8 +196,6 @@ namespace masaustuProgrami
                     break;
 
                 case DataTypes.Image:
-
-                    Console.WriteLine("AAA");
 
                     UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)data);
 
@@ -212,7 +216,7 @@ namespace masaustuProgrami
                         Users.Add(userinfo.UserId, userinfo);
                         SoundHelper.Instance.AddUser(userinfo);
 
-                        PrintMessage(userinfo.Username + " odaya katıldı."); //bu kullanıcıları bir listede tutucam
+                        PrintMessage(userinfo.Username + " odaya katıldı.");
 
                         UserViewController.AddUser(userinfo);
                     }
@@ -235,6 +239,8 @@ namespace masaustuProgrami
 
             if (CameraHelper.IsOpen)
                 CameraHelper.Close();
+
+            LoginForm.Instance.Close();
         }
 
         private void Application_ApplicationExit(object sender, EventArgs e)
@@ -302,34 +308,5 @@ namespace masaustuProgrami
         #endregion
 
         #endregion
-
-        private void btnmicrophone_Click(object sender, EventArgs e)
-        {
-            if (!micState)
-            {
-                micState = true;
-                btnmicrophone.Text = "Mikrofonu Kapat";
-
-                Invoke(new Action(() => SoundHelper.Instance.StartMic()));
-            }
-            else
-            {
-                micState = false;
-                btnmicrophone.Text = "Mikrofon Aç";
-
-                Invoke(new Action(() => SoundHelper.Instance.StopMic()));
-            }
-        }
-
-        private void Form_Load(object sender, EventArgs e)
-        {
-            var random = new Random();
-            var un = "";
-
-            for (var i = 0; i < 8; i++)
-                un += (char)+random.Next(65, 90);
-
-            textboxKullaniciadi.Text = un;
-        }
     }
 }

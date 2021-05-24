@@ -116,6 +116,7 @@ namespace masaustuProgrami
                 ClientThread.Start();
 
                 OnConnectionChanged?.Invoke(IsConnected);
+
             }
             catch(Exception e)
             {
@@ -150,15 +151,15 @@ namespace masaustuProgrami
             if (!IsConnected)
                 return;
 
-            /*
+            
             var dataByte = DataHelper.Instance.GetSendData(dataType, data); // veriyi, byte arrayine çevirdim
             var length = dataByte.Length; //verinin uzunluğunu atadık
 
-            var headerData = DataHelper.Instance.GetHeaderData(Form.ID, dataType, length); // ön bilgi içeren kısmı byte arrayine çevirdim
+            var headerData = DataHelper.Instance.GetHeaderData(MainForm.ID, dataType, length); // ön bilgi içeren kısmı byte arrayine çevirdim
 
             NetworkStream.Write(headerData.ToByteArray(), 0, HeaderData.HeaderLength); //veriyle ilgili ön bilgiler yazıyorum.
             NetworkStream.Write(dataByte, 0, length);
-            */
+            
         }
 
         #endregion

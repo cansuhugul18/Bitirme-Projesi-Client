@@ -105,12 +105,13 @@ namespace masaustuProgrami
             // 
             this.OdaIdTextBox.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.OdaIdTextBox.Location = new System.Drawing.Point(187, 225);
-            this.OdaIdTextBox.MaxLength = 20;
+            this.OdaIdTextBox.MaxLength = 10;
             this.OdaIdTextBox.Name = "OdaIdTextBox";
             this.OdaIdTextBox.Radius = 15;
             this.OdaIdTextBox.Size = new System.Drawing.Size(214, 31);
             this.OdaIdTextBox.TabIndex = 6;
             this.OdaIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.OdaIdTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OdaIdTextBox_KeyPress);
             // 
             // KullaniciAdiTextBox
             // 

@@ -1,5 +1,6 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
+using DataCore;
 using masaustuProgrami.Helpers.Events;
 using System;
 using System.Drawing;
@@ -159,18 +160,20 @@ namespace masaustuProgrami.Helpers
 
         private void VideoCaptureDevice_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+                      
             if (!IsOpen)
                 return;
-
-            if(++c > 25)
+            
+            if(++c > 50)
             {
-                OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs((Image)eventArgs.Frame));
+                OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs(eventArgs.Frame));
 
                 c = 0;
             }
 
 
             //eventArgs.Frame.Dispose();
+            
         }
 
         #endregion
