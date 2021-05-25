@@ -18,6 +18,10 @@ namespace DataCore
             return Encoding.UTF8.GetString(bytes);
         }
 
+        /*
+         * TODO: bu iki image converter bazen hata verebilir.
+         * try catch icine alinmali hata vermesi durunda null donmeli ve methodun cagrildigi yerde hata vermemesi lazim.
+         */
         public static byte[] ToByteArray(this Image image)
         {
             return (byte[]) new ImageConverter().ConvertTo(image, typeof(byte[]));
