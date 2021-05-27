@@ -87,8 +87,8 @@ namespace masaustuProgrami.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.Controls.Add(this.MicButton);
-            this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.PictureBox);
+            this.Controls.Add(this.UserNameLabel);
             this.Name = "UserViewModel";
             this.Size = new System.Drawing.Size(318, 182);
             this.Load += new System.EventHandler(this.UserCompoment_Load);

@@ -81,7 +81,6 @@ namespace masaustuProgrami.Views
                 return;
 
             MicButton.Visible = visibility;
-            UserNameLabel.Visible = visibility;
         }
 
         #endregion
