@@ -179,6 +179,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\RoundedTextBox.resx">
+      <DependentUpon>RoundedTextBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\UserViewModel.resx">
       <DependentUpon>UserViewModel.cs</DependentUpon>
     </EmbeddedResource>

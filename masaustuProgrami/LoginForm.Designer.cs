@@ -98,6 +98,7 @@ namespace masaustuProgrami
             this.KatilRoundedButton.Size = new System.Drawing.Size(127, 40);
             this.KatilRoundedButton.TabIndex = 7;
             this.KatilRoundedButton.Text = "Katıl";
+            this.KatilRoundedButton.UseMnemonic = false;
             this.KatilRoundedButton.UseVisualStyleBackColor = true;
             this.KatilRoundedButton.Click += new System.EventHandler(this.KatilRoundedButton_Click);
             // 

@@ -24,12 +24,26 @@ namespace DataCore
          */
         public static byte[] ToByteArray(this Image image)
         {
-            return (byte[]) new ImageConverter().ConvertTo(image, typeof(byte[]));
+            try
+            {
+                return (byte[])new ImageConverter().ConvertTo(image, typeof(byte[]));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static Image ToImage(this byte[] bytes)
         {
-            return (Image) new ImageConverter().ConvertFrom(bytes);
+            try
+            {
+                return (Image)new ImageConverter().ConvertFrom(bytes);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static byte ToByte(this DataTypes dataType)

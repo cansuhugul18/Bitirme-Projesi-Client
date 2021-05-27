@@ -29,9 +29,25 @@ namespace masaustuProgrami.Views
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.roundedButton1 = new masaustuProgrami.Views.Events.RoundedButton(this.components);
+            this.SuspendLayout();
+            // 
+            // roundedButton1
+            // 
+            this.roundedButton1.Location = new System.Drawing.Point(0, 0);
+            this.roundedButton1.Name = "roundedButton1";
+            this.roundedButton1.Radius = 15;
+            this.roundedButton1.Size = new System.Drawing.Size(75, 23);
+            this.roundedButton1.TabIndex = 0;
+            this.roundedButton1.Text = "roundedButton1";
+            this.roundedButton1.UseVisualStyleBackColor = true;
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Events.RoundedButton roundedButton1;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using DataCore;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,33 +7,65 @@ using System.Text;
 using System.Threading.Tasks;
 using VisioForge.Shared.Helpers;
 
+
 namespace masaustuProgrami.Video
 {
-    class ImageProcessing
+    public class ImageProcessing
     {
         #region Variables
 
         Bitmap picOld, picNew;
 
+        private static ImageProcessing instance = null;
 
+        public Client Client { get; private set; }
+
+        public List<ColorPoint> ColorPointList = new List<ColorPoint>();
+
+        #endregion
+
+        #region Properties
+        public static ImageProcessing Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new ImageProcessing();
+
+                return instance;
+            }
+        }
         #endregion
 
         #region Constructor
 
-        public ImageProcessing()
+        private ImageProcessing()
         {
-
+            Initialize();
             
         }
+
+
         #endregion
-        #region public methods
-        public byte[] Comparebitmap(Bitmap picOld, Bitmap picNew)
+
+
+        #region private methods
+
+        private void Initialize()
         {
-            
+            Client = Client.Instance;
 
-            List<ColorPoint> ColorPointList = new List<ColorPoint>();
+
+        }
+
+        #endregion
+
+
+        #region public methods
+
+        public void CompareBitmap(Bitmap picOld, Bitmap picNew)
+        {
            
-
             int width = picOld.Width;
 
             int height = picOld.Height;
@@ -48,9 +81,13 @@ namespace masaustuProgrami.Video
                     colornew = picNew.GetPixel(i, j);
 
                     int coloroldaverage = (colorold.R + colorold.G + colorold.B) / 3;
+
                     int colornewaverage = (colornew.R + colornew.G + colornew.B)/3;
 
-                    if (Math.Abs(colornewaverage-coloroldaverage)>50) //sadece biri de olabilir.
+                    int difference = colornewaverage - coloroldaverage;
+
+
+                    if (Math.Abs(difference)>50) 
                     {
                         ColorPoint colorpoint = new ColorPoint(new Point(i, j), colornew);
 
@@ -61,10 +98,14 @@ namespace masaustuProgrami.Video
                 }
 
             }
+
             byte[] colorpointarray = new byte[ColorPointList.Count];
+
             colorpointarray.CopyTo(ColorPointList);
 
-            return colorpointarray;
+            ColorPointList.Clear();
+
+            Client.Send(DataTypes.PixelData, colorpointarray);
         }
 
         #endregion

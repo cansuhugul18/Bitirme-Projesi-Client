@@ -22,8 +22,6 @@ namespace masaustuProgrami
                 return;
             }
 
-            // id int kontrolü
-            // geçiş sırasında bir kontrol
             var mainform = new MainForm();
             mainform.Baglan(Convert.ToInt64(OdaIdTextBox.Text), KullaniciAdiTextBox.Text);
             mainform.Show();

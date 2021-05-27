@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
+using masaustuProgrami.Video;
 
 namespace masaustuProgrami
 {
@@ -24,8 +25,6 @@ namespace masaustuProgrami
         public static Form instance =null;
 
         public int framecount = 0;
-
-        private bool micState = false;
 
         private Client Client { get; set; }
 
@@ -90,26 +89,12 @@ namespace masaustuProgrami
 
         #region Events
 
-        private void btnmicrophone_Click(object sender, EventArgs e)
-        {
-            if (!micState)
-            {
-                micState = true;
-                btnmicrophone.Text = "Mikrofonu Kapat";
-
-                Invoke(new Action(() => SoundHelper.Instance.StartMic()));
-            }
-            else
-            {
-                micState = false;
-                btnmicrophone.Text = "Mikrofon Aç";
-
-                Invoke(new Action(() => SoundHelper.Instance.StopMic()));
-            }
-        }
+        
 
         public void Baglan(long roomId, string username)
         {
+            MainForm.instance.Text = username+"-"+roomId.ToString();
+
             UserConnected(roomId, username);
 
             if (!Client.IsConnected)
@@ -130,18 +115,20 @@ namespace masaustuProgrami
             if (state)
             {
                 ChatBoxGroupBox.Enabled = true;
-                BtnResimAc.Enabled = true;
-                OpenCloseCameraButton.Enabled = true;
-                btnmicrophone.Enabled = true;
+                ResimGonderRoundedButton.Enabled = true;
+                KameraAcRoundedButton.Enabled = true;
+                MikrofonAcRoundedButton.Enabled = true;
+                CikisYapRoundedButton.Enabled = true;
 
                 Client.Send(DataTypes.UserInfo, UserInfo);
             }
             else
             {
                 ChatBoxGroupBox.Enabled = false;
-                BtnResimAc.Enabled = false;
-                OpenCloseCameraButton.Enabled = false;
-                btnmicrophone.Enabled = false;
+                ResimGonderRoundedButton.Enabled = false;
+                KameraAcRoundedButton.Enabled = false;
+                MikrofonAcRoundedButton.Enabled = false;
+                CikisYapRoundedButton.Enabled = false;
 
                 textboxMesaj.Clear();
                 RichTextBox.Clear();
@@ -149,10 +136,57 @@ namespace masaustuProgrami
 
                 if (CameraHelper.IsOpen)
                     CameraHelper.Close();
+
+                //TODO: mainform.hide yapılabilir. loginform yeni oluşturabilir.
+
+                Close();
             }
         }
 
-        private void BtnmesajgonderClick(object sender, EventArgs e)
+      
+        private void TextboxMesajTextChanged(object sender, EventArgs e)
+        {
+            btnmesajgonder.Enabled = textboxMesaj.Text.Length > 0;
+        }
+
+        private void ResimGonderRoundedButton_Click(object sender, EventArgs e)
+        {
+            Bitmap oldImage = new Bitmap(@"C:\Users\Cansu\Desktop\a.png");
+            Bitmap newImage = new Bitmap(@"C:\Users\Cansu\Desktop\b.png");
+            ImageProcessing.Instance.CompareBitmap(oldImage, newImage);
+
+            /*
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Image dosyaları (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+
+            if (dialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            Bitmap bitmap = new Bitmap(Image.FromFile(dialog.FileName));
+            //UserCameraOutput.Image = bitmap;
+            Client.Send(DataTypes.Image, Image.FromFile(dialog.FileName));
+            */
+        }
+
+
+        private void MikrofonAcRoundedButton_Click(object sender, EventArgs e)
+        { 
+            //TODO: micstate değişkeni yerine  soundhelperdaki isopen kullanılcak.
+            if (!SoundHelper.Instance.IsRecording)
+            {
+                MikrofonAcRoundedButton.Text = "Mikrofonu Kapat";
+
+                Invoke(new Action(() => SoundHelper.Instance.StartMic()));
+            }
+            else
+            {
+                MikrofonAcRoundedButton.Text = "Mikrofon Aç";
+
+                Invoke(new Action(() => SoundHelper.Instance.StopMic()));
+            }
+        }
+        
+        private void MesajGonderRoundedButton_Click(object sender, EventArgs e)
         {
             // send veri tipi ve veri alıyor
             Client.Send(DataTypes.String, textboxMesaj.Text);
@@ -163,24 +197,15 @@ namespace masaustuProgrami
 
             textboxMesaj.Focus();
         }
-
-        private void TextboxMesajTextChanged(object sender, EventArgs e)
+        private void KameraAcRoundedButton_Click(object sender, EventArgs e)
         {
-            btnmesajgonder.Enabled = textboxMesaj.Text.Length > 0;
+            framecount = 0;
+            if (CameraHelper.IsOpen)
+                CameraHelper.Close();
+            else
+                CameraHelper.Open();
         }
-
-        private void BtnResimAcClick(object sender, EventArgs e)
-        {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "Image dosyaları (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
-
-            if (dialog.ShowDialog(this) != DialogResult.OK)
-                return;
-
-            Bitmap bitmap = new Bitmap(Image.FromFile(dialog.FileName));
-            //UserCameraOutput.Image = bitmap;
-            Client.Send(DataTypes.Image, Image.FromFile(dialog.FileName));
-        }
+       
 
         private void ClientOnDataRead(HeaderData headerData, object data)
         {
@@ -200,12 +225,22 @@ namespace masaustuProgrami
                     UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)data);
 
                     break;
+
                 case DataTypes.Sound:
+
                     SoundHelper.Instance.PlaySound(headerData.Id, (byte[]) data);
+
                     break;
 
                 case DataTypes.PixelData:
-                    throw new NotImplementedException("Bu veritipi suanda desteklenmemktedir.");
+
+                    Console.WriteLine("pixels");
+
+                    var newimage= CameraHelper.Instance.PutPixel(headerData.Id, (byte[])data);
+
+                    UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)newimage);
+
+                    break;
 
                 case DataTypes.UserInfo:
 
@@ -226,6 +261,7 @@ namespace masaustuProgrami
                     }
 
                     break;
+
                 default:
                     Console.WriteLine("DEFAULT");
                     break;
@@ -277,11 +313,11 @@ namespace masaustuProgrami
         {
             if (e.State)
             {
-                OpenCloseCameraButton.Text = "Kamera Kapat";
+                KameraAcRoundedButton.Text = "Kamera Kapat";
             }
             else
             {
-                OpenCloseCameraButton.Text = "Kamera Aç";
+                KameraAcRoundedButton.Text = "Kamera Aç";
             }
         }
 
@@ -305,8 +341,22 @@ namespace masaustuProgrami
             });
         }
 
+
         #endregion
 
         #endregion
+
+        private void CikisYapRoundedButton_Click(object sender, EventArgs e)
+        {
+           
+            UserViewController.RemoveUser(UserInfo);
+
+            Users.Remove(ID);
+
+            Client.Disconnect();
+
+            
+        }
+
     }
 }

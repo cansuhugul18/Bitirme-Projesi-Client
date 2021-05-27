@@ -12,9 +12,9 @@ namespace masaustuProgrami.Video
 
         #region Variables
 
-        Point point;
+        public Point point;
 
-        Color color;
+         public  Color color;
         #endregion
 
         #region Constructor

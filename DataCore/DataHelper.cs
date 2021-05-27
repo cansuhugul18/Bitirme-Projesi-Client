@@ -66,7 +66,7 @@ namespace DataCore
                 case DataTypes.Sound:
                     return (byte[]) data;
                 case DataTypes.PixelData:
-                    throw new NotImplementedException("Bu veritipi suanda desteklenmemktedir. Tip: " + dataType);
+                    return (byte[])data;
                 case DataTypes.UserInfo:
                     return ((UserInfo)data).ToByteArray();
             }
@@ -87,7 +87,7 @@ namespace DataCore
                 case DataTypes.Sound:
                     return data;
                 case DataTypes.PixelData:
-                    throw new NotImplementedException("Bu veritipi suanda desteklenmemktedir.");
+                    return data;
                 case DataTypes.UserInfo:
                     return UserInfo.FromByteArray(data);
             }

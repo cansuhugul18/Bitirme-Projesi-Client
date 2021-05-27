@@ -5,6 +5,10 @@ using masaustuProgrami.Helpers.Events;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using masaustuProgrami.Video;
+using System.Collections.Generic;
+using VisioForge.Shared.Helpers;
+using Org.BouncyCastle.Utilities;
 
 namespace masaustuProgrami.Helpers
 {
@@ -19,6 +23,8 @@ namespace masaustuProgrami.Helpers
         private int deviceIndex = 0;
 
         private bool isOpen = false;
+
+        public List<ColorPoint> PointColorList = new List<ColorPoint>();
 
         #endregion
 
@@ -145,6 +151,30 @@ namespace masaustuProgrami.Helpers
                 Open();
             }
         }
+       
+
+        public Bitmap PutPixel(long userId, byte[] colorpointarray) 
+        {
+           Bitmap oldImage = new Bitmap(@"C:\Users\Cansu\Desktop\a.png");
+
+            PointColorList.CopyTo(colorpointarray);
+          
+
+            for (int i = 0; i < PointColorList.Count; i++)
+            {
+
+                ColorPoint colorPoint  = PointColorList[i];
+
+               
+                oldImage.SetPixel(colorPoint.point.X, colorPoint.point.Y, colorPoint.color);
+               // TODO: yeni frame olacak.
+          
+            }
+           
+           return oldImage;
+
+
+        }
 
         #endregion
 
@@ -157,24 +187,38 @@ namespace masaustuProgrami.Helpers
         }
 
         int c = 0;
+        int firstframe = 0;
 
+        Bitmap oldimage;
+        Bitmap newimage;
         private void VideoCaptureDevice_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
                       
             if (!IsOpen)
                 return;
             
+            if (firstframe == 0)
+            {
+                oldimage = eventArgs.Frame;
+                OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs(oldimage));
+               
+                firstframe++;
+            }
+            
             if(++c > 50)
             {
-                OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs(eventArgs.Frame));
+              //  OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs(newimage=eventArgs.Frame));
+
+                newimage = eventArgs.Frame;
+
+                ImageProcessing.Instance.CompareBitmap(oldimage, newimage);
 
                 c = 0;
-            }
 
 
-            //eventArgs.Frame.Dispose();
-            
+            }  
         }
+
 
         #endregion
     }
