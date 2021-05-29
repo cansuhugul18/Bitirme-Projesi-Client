@@ -1,12 +1,8 @@
-﻿using System;
-using DataCore;
+﻿using DataCore;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VisioForge.Shared.Helpers;
-
 
 namespace masaustuProgrami.Video
 {
@@ -14,17 +10,17 @@ namespace masaustuProgrami.Video
     {
         #region Variables
 
-        Bitmap picOld, picNew;
+        private Bitmap picOld;
+        private Bitmap picNew;
 
         private static ImageProcessing instance = null;
 
         public Client Client { get; private set; }
 
-        public List<ColorPoint> ColorPointList = new List<ColorPoint>();
-
         #endregion
 
         #region Properties
+
         public static ImageProcessing Instance
         {
             get
@@ -42,74 +38,98 @@ namespace masaustuProgrami.Video
         private ImageProcessing()
         {
             Initialize();
-            
         }
 
-
         #endregion
-
 
         #region private methods
 
         private void Initialize()
         {
             Client = Client.Instance;
-
-
         }
 
         #endregion
-
 
         #region public methods
 
         public void CompareBitmap(Bitmap picOld, Bitmap picNew)
         {
-           
             int width = picOld.Width;
-
             int height = picOld.Height;
 
-            Color colorold, colornew;
+            UnsafeBitmap oldImage = new UnsafeBitmap(picOld);
+            UnsafeBitmap newImage = new UnsafeBitmap(picNew);
+
+            oldImage.LockBitmap();
+            newImage.LockBitmap();
+
+            ByteArray pointArray = new ByteArray();
+
+            const int diff = 5;
 
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)
                 {
-                    colorold = picOld.GetPixel(i, j);
+                    var colorold = oldImage.GetPixel(i, j);
+                    var colornew = newImage.GetPixel(i, j);
 
-                    colornew = picNew.GetPixel(i, j);
-
-                    int coloroldaverage = (colorold.R + colorold.G + colorold.B) / 3;
-
-                    int colornewaverage = (colornew.R + colornew.G + colornew.B)/3;
-
+                    int coloroldaverage = (colorold.red + colorold.green + colorold.blue) / 3;
+                    int colornewaverage = (colornew.red + colornew.green + colornew.blue) / 3;
                     int difference = colornewaverage - coloroldaverage;
 
-
-                    if (Math.Abs(difference)>50) 
+                    if (Math.Abs(colorold.red - colornew.red) > diff || Math.Abs(colorold.green - colornew.green) > diff || Math.Abs(colorold.blue - colornew.blue) > diff)
                     {
-                        ColorPoint colorpoint = new ColorPoint(new Point(i, j), colornew);
-
-                        ColorPointList.Add(colorpoint);
-
+                        PixelData colorpoint = new PixelData(new Point(i, j), Color.FromArgb(colornew.red,colornew.green,colornew.blue));
+                        
+                        byte[] colorpointbyte = colorpoint.ToByteArray();
+                        
+                        pointArray.Push(colorpointbyte);
                     }
-
                 }
-
             }
 
-            byte[] colorpointarray = new byte[ColorPointList.Count];
+            oldImage.UnlockBitmap();
+            newImage.UnlockBitmap();
 
-            colorpointarray.CopyTo(ColorPointList);
+            Client.Send(DataTypes.PixelData, pointArray.ToArray());
+        }
 
-            ColorPointList.Clear();
+        public Image ApplyPixelDataToImage(Bitmap currentImage, IList<PixelData> colors)
+        {
+            UnsafeBitmap unsafeBitmap = new UnsafeBitmap(currentImage);
+            unsafeBitmap.LockBitmap();
 
-            Client.Send(DataTypes.PixelData, colorpointarray);
+            foreach (PixelData color in colors)
+                unsafeBitmap.SetPixel(color.point.X, color.point.Y, color.color);
+
+            unsafeBitmap.UnlockBitmap();
+
+            Console.WriteLine("C " + colors.Count);
+
+            return unsafeBitmap.Bitmap;
+        }
+
+        public IList<PixelData> GetPixelDataFrom(byte[] data)
+        {
+            var list = new List<PixelData>();
+
+            for(var i = 0; i < data.Length; i += 11)
+            {
+                var slice = new byte[11];
+
+                for (var l = 0; l < 11; l++)
+                    slice[l] = data[i + l];
+
+                list.Add(PixelData.FromByteArray(slice));
+            }
+
+            //list.Add(PixelData.FromByteArray(data.Skip(i).Take(11).ToArray()));
+
+            return list;
         }
 
         #endregion
-
-
     }
 }

@@ -151,7 +151,6 @@ namespace masaustuProgrami
             if (!IsConnected)
                 return;
 
-            
             var dataByte = DataHelper.Instance.GetSendData(dataType, data); // veriyi, byte arrayine çevirdim
             var length = dataByte.Length; //verinin uzunluğunu atadık
 
@@ -159,7 +158,6 @@ namespace masaustuProgrami
 
             NetworkStream.Write(headerData.ToByteArray(), 0, HeaderData.HeaderLength); //veriyle ilgili ön bilgiler yazıyorum.
             NetworkStream.Write(dataByte, 0, length);
-            
         }
 
         #endregion

@@ -118,6 +118,7 @@ namespace masaustuProgrami
                 ResimGonderRoundedButton.Enabled = true;
                 KameraAcRoundedButton.Enabled = true;
                 MikrofonAcRoundedButton.Enabled = true;
+             
                 CikisYapRoundedButton.Enabled = true;
 
                 Client.Send(DataTypes.UserInfo, UserInfo);
@@ -128,6 +129,7 @@ namespace masaustuProgrami
                 ResimGonderRoundedButton.Enabled = false;
                 KameraAcRoundedButton.Enabled = false;
                 MikrofonAcRoundedButton.Enabled = false;
+               
                 CikisYapRoundedButton.Enabled = false;
 
                 textboxMesaj.Clear();
@@ -139,7 +141,7 @@ namespace masaustuProgrami
 
                 //TODO: mainform.hide yapılabilir. loginform yeni oluşturabilir.
 
-                Close();
+              //  Close();
             }
         }
 
@@ -149,13 +151,14 @@ namespace masaustuProgrami
             btnmesajgonder.Enabled = textboxMesaj.Text.Length > 0;
         }
 
+        private void textboxMesaj_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                MesajGonderRoundedButton.PerformClick();
+        }
+
         private void ResimGonderRoundedButton_Click(object sender, EventArgs e)
         {
-            Bitmap oldImage = new Bitmap(@"C:\Users\Cansu\Desktop\a.png");
-            Bitmap newImage = new Bitmap(@"C:\Users\Cansu\Desktop\b.png");
-            ImageProcessing.Instance.CompareBitmap(oldImage, newImage);
-
-            /*
             var dialog = new OpenFileDialog();
             dialog.Filter = "Image dosyaları (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
@@ -165,13 +168,20 @@ namespace masaustuProgrami
             Bitmap bitmap = new Bitmap(Image.FromFile(dialog.FileName));
             //UserCameraOutput.Image = bitmap;
             Client.Send(DataTypes.Image, Image.FromFile(dialog.FileName));
+
+            /*
+            Bitmap oldImage = new Bitmap(@"C:\Users\Cansu\Desktop\a.png");
+            Bitmap newImage = new Bitmap(@"C:\Users\Cansu\Desktop\b.png");
+            ImageProcessing.Instance.CompareBitmap(oldImage, newImage);
+
             */
+
         }
 
 
         private void MikrofonAcRoundedButton_Click(object sender, EventArgs e)
         { 
-            //TODO: micstate değişkeni yerine  soundhelperdaki isopen kullanılcak.
+            
             if (!SoundHelper.Instance.IsRecording)
             {
                 MikrofonAcRoundedButton.Text = "Mikrofonu Kapat";
@@ -233,12 +243,8 @@ namespace masaustuProgrami
                     break;
 
                 case DataTypes.PixelData:
-
-                    Console.WriteLine("pixels");
-
-                    var newimage= CameraHelper.Instance.PutPixel(headerData.Id, (byte[])data);
-
-                    UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)newimage);
+                    
+                    UserViewController.GetViewModel(headerData.Id)?.UpdateImage((byte[])data);
 
                     break;
 
@@ -288,7 +294,7 @@ namespace masaustuProgrami
 
         private void OpenCloseCameraButton_Click(object sender, EventArgs e)
         {
-            framecount = 0;
+           //  framecount = 0;
             if (CameraHelper.IsOpen)
                 CameraHelper.Close();
             else
@@ -357,6 +363,5 @@ namespace masaustuProgrami
 
             
         }
-
     }
 }

@@ -2,6 +2,7 @@
 using masaustuProgrami.Helpers;
 using masaustuProgrami.Properties;
 using masaustuProgrami.Sound;
+using masaustuProgrami.Video;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -118,14 +119,19 @@ namespace masaustuProgrami.Views
 
         public void ShowImage(Image image)
         {
-           //image.Save(@"C:\Users\Cansu\Desktop\b.png");
-           //return;
-           //Console.WriteLine("OK");
-            PictureBox.BeginInvoke((MethodInvoker)delegate
+            PictureBox.Invoke((MethodInvoker)delegate
             {
-                //PictureBox.Image?.Dispose();
-
                 PictureBox.Image = image;
+            });
+        }
+
+        public void UpdateImage(byte[] data)
+        {
+            if (PictureBox.Image == null) return;
+
+            PictureBox.Invoke((MethodInvoker)delegate
+            {
+                PictureBox.Image = ImageProcessing.Instance.ApplyPixelDataToImage((Bitmap)PictureBox.Image, ImageProcessing.Instance.GetPixelDataFrom(data));
             });
         }
 

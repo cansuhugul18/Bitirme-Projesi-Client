@@ -74,6 +74,12 @@ namespace DataCore
             return BitConverter.ToInt64(bytes, 0);
         }
 
+        public static Color ToColor(this byte[] bytes)
+        {
+            return Color.FromArgb(bytes[0],bytes[1],bytes[2]);
+        }
+
+
         #endregion
     }
 }

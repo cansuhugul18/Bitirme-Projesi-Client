@@ -24,7 +24,11 @@ namespace masaustuProgrami.Helpers
 
         private bool isOpen = false;
 
-        public List<ColorPoint> PointColorList = new List<ColorPoint>();
+        private Bitmap oldimage;
+
+        private Bitmap newimage;
+
+        private long frameCount = 0;
 
         #endregion
 
@@ -44,6 +48,8 @@ namespace masaustuProgrami.Helpers
             get => isOpen;
             private set
             {
+                frameCount = 0;
+
                 isOpen = value;
 
                 OnCaptureDeviceStateChanged?.Invoke(this, new CaptureDeviceStateChangedEventArgs(isOpen));
@@ -151,30 +157,6 @@ namespace masaustuProgrami.Helpers
                 Open();
             }
         }
-       
-
-        public Bitmap PutPixel(long userId, byte[] colorpointarray) 
-        {
-           Bitmap oldImage = new Bitmap(@"C:\Users\Cansu\Desktop\a.png");
-
-            PointColorList.CopyTo(colorpointarray);
-          
-
-            for (int i = 0; i < PointColorList.Count; i++)
-            {
-
-                ColorPoint colorPoint  = PointColorList[i];
-
-               
-                oldImage.SetPixel(colorPoint.point.X, colorPoint.point.Y, colorPoint.color);
-               // TODO: yeni frame olacak.
-          
-            }
-           
-           return oldImage;
-
-
-        }
 
         #endregion
 
@@ -186,39 +168,42 @@ namespace masaustuProgrami.Helpers
                 Close();
         }
 
-        int c = 0;
-        int firstframe = 0;
-
-        Bitmap oldimage;
-        Bitmap newimage;
         private void VideoCaptureDevice_NewFrame(object sender, NewFrameEventArgs eventArgs)
-        {
-                      
+        {                      
             if (!IsOpen)
                 return;
-            
-            if (firstframe == 0)
+
+            /*
+
+            if (frameCount++ > 25)
             {
-                oldimage = eventArgs.Frame;
-                OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs(oldimage));
-               
-                firstframe++;
+                OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs((Bitmap)eventArgs.Frame.Clone()));
+                frameCount = 0;
             }
-            
-            if(++c > 50)
+
+            return;
+            */
+
+            if (frameCount++ == 0)
             {
-              //  OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs(newimage=eventArgs.Frame));
+                oldimage = (Bitmap) eventArgs.Frame.Clone();
+                OnNewFrame?.Invoke(this, new CameraNewFrameEventArgs(oldimage));
 
-                newimage = eventArgs.Frame;
+                return;
+            }
 
-                ImageProcessing.Instance.CompareBitmap(oldimage, newimage);
+            if (frameCount++ % 3 != 0)
+                return;
 
-                c = 0;
+            newimage = (Bitmap)eventArgs.Frame.Clone();
 
+            ImageProcessing.Instance.CompareBitmap(oldimage, newimage);
 
-            }  
+            oldimage.Dispose();
+            eventArgs.Frame.Dispose();
+
+            oldimage = newimage;
         }
-
 
         #endregion
     }

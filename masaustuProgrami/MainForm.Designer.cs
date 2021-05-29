@@ -62,6 +62,7 @@
             this.textboxMesaj.Size = new System.Drawing.Size(132, 20);
             this.textboxMesaj.TabIndex = 10;
             this.textboxMesaj.TextChanged += new System.EventHandler(this.TextboxMesajTextChanged);
+            this.textboxMesaj.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textboxMesaj_KeyDown);
             // 
             // ChatBoxGroupBox
             // 
@@ -110,9 +111,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FlowLayoutPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.FlowLayoutPanel.Location = new System.Drawing.Point(12, 56);
+            this.FlowLayoutPanel.Location = new System.Drawing.Point(12, 59);
             this.FlowLayoutPanel.Name = "FlowLayoutPanel";
-            this.FlowLayoutPanel.Size = new System.Drawing.Size(601, 395);
+            this.FlowLayoutPanel.Size = new System.Drawing.Size(601, 392);
             this.FlowLayoutPanel.TabIndex = 23;
             // 
             // CikisYapRoundedButton
@@ -165,8 +166,8 @@
             this.MikrofonAcRoundedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MikrofonAcRoundedButton.BackColor = System.Drawing.SystemColors.Control;
             this.MikrofonAcRoundedButton.Enabled = false;
-            this.MikrofonAcRoundedButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.MikrofonAcRoundedButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.MikrofonAcRoundedButton.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.MikrofonAcRoundedButton.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
             this.MikrofonAcRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.MikrofonAcRoundedButton.Location = new System.Drawing.Point(341, 12);
             this.MikrofonAcRoundedButton.Name = "MikrofonAcRoundedButton";
