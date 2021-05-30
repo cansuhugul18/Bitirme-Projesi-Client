@@ -29,29 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnmesajgonder = new System.Windows.Forms.Button();
             this.textboxMesaj = new System.Windows.Forms.TextBox();
             this.ChatBoxGroupBox = new System.Windows.Forms.GroupBox();
-            this.MesajGonderRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
-            this.RichTextBox = new System.Windows.Forms.RichTextBox();
+            this.DataflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.FlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.CikisYapRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
-            this.ResimGonderRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
-            this.KameraAcRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
             this.MikrofonAcRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
+            this.KameraAcRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
+            this.ResimGonderRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
+            this.CikisYapRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
+            this.MesajGonderRoundedButton = new masaustuProgrami.Views.Events.RoundedButton(this.components);
             this.ChatBoxGroupBox.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnmesajgonder
-            // 
-            this.btnmesajgonder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnmesajgonder.Enabled = false;
-            this.btnmesajgonder.Location = new System.Drawing.Point(161, 276);
-            this.btnmesajgonder.Name = "btnmesajgonder";
-            this.btnmesajgonder.Size = new System.Drawing.Size(64, 23);
-            this.btnmesajgonder.TabIndex = 12;
-            this.btnmesajgonder.Text = "Gonder";
-            this.btnmesajgonder.UseVisualStyleBackColor = true;
             // 
             // textboxMesaj
             // 
@@ -68,10 +56,9 @@
             // 
             this.ChatBoxGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ChatBoxGroupBox.Controls.Add(this.DataflowLayoutPanel);
             this.ChatBoxGroupBox.Controls.Add(this.MesajGonderRoundedButton);
-            this.ChatBoxGroupBox.Controls.Add(this.RichTextBox);
             this.ChatBoxGroupBox.Controls.Add(this.textboxMesaj);
-            this.ChatBoxGroupBox.Controls.Add(this.btnmesajgonder);
             this.ChatBoxGroupBox.Enabled = false;
             this.ChatBoxGroupBox.Location = new System.Drawing.Point(622, 12);
             this.ChatBoxGroupBox.Name = "ChatBoxGroupBox";
@@ -80,30 +67,17 @@
             this.ChatBoxGroupBox.TabStop = false;
             this.ChatBoxGroupBox.Text = "Chat Box";
             // 
-            // MesajGonderRoundedButton
+            // DataflowLayoutPanel
             // 
-            this.MesajGonderRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.MesajGonderRoundedButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.MesajGonderRoundedButton.Location = new System.Drawing.Point(144, 410);
-            this.MesajGonderRoundedButton.Name = "MesajGonderRoundedButton";
-            this.MesajGonderRoundedButton.Radius = 15;
-            this.MesajGonderRoundedButton.Size = new System.Drawing.Size(72, 25);
-            this.MesajGonderRoundedButton.TabIndex = 14;
-            this.MesajGonderRoundedButton.Text = "Gönder";
-            this.MesajGonderRoundedButton.UseMnemonic = false;
-            this.MesajGonderRoundedButton.UseVisualStyleBackColor = true;
-            this.MesajGonderRoundedButton.Click += new System.EventHandler(this.MesajGonderRoundedButton_Click);
-            // 
-            // RichTextBox
-            // 
-            this.RichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RichTextBox.Location = new System.Drawing.Point(0, 19);
-            this.RichTextBox.Name = "RichTextBox";
-            this.RichTextBox.ReadOnly = true;
-            this.RichTextBox.Size = new System.Drawing.Size(225, 383);
-            this.RichTextBox.TabIndex = 13;
-            this.RichTextBox.Text = "";
+            this.DataflowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.DataflowLayoutPanel.AutoScroll = true;
+            this.DataflowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.DataflowLayoutPanel.Location = new System.Drawing.Point(6, 19);
+            this.DataflowLayoutPanel.Name = "DataflowLayoutPanel";
+            this.DataflowLayoutPanel.Size = new System.Drawing.Size(219, 385);
+            this.DataflowLayoutPanel.TabIndex = 15;
+            this.DataflowLayoutPanel.WrapContents = false;
             // 
             // FlowLayoutPanel
             // 
@@ -115,51 +89,6 @@
             this.FlowLayoutPanel.Name = "FlowLayoutPanel";
             this.FlowLayoutPanel.Size = new System.Drawing.Size(601, 392);
             this.FlowLayoutPanel.TabIndex = 23;
-            // 
-            // CikisYapRoundedButton
-            // 
-            this.CikisYapRoundedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CikisYapRoundedButton.BackColor = System.Drawing.SystemColors.Control;
-            this.CikisYapRoundedButton.Enabled = false;
-            this.CikisYapRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CikisYapRoundedButton.Location = new System.Drawing.Point(504, 12);
-            this.CikisYapRoundedButton.Name = "CikisYapRoundedButton";
-            this.CikisYapRoundedButton.Radius = 15;
-            this.CikisYapRoundedButton.Size = new System.Drawing.Size(94, 23);
-            this.CikisYapRoundedButton.TabIndex = 24;
-            this.CikisYapRoundedButton.Text = "Çıkış Yap";
-            this.CikisYapRoundedButton.UseMnemonic = false;
-            this.CikisYapRoundedButton.UseVisualStyleBackColor = true;
-            this.CikisYapRoundedButton.Click += new System.EventHandler(this.CikisYapRoundedButton_Click);
-            // 
-            // ResimGonderRoundedButton
-            // 
-            this.ResimGonderRoundedButton.BackColor = System.Drawing.SystemColors.Control;
-            this.ResimGonderRoundedButton.Enabled = false;
-            this.ResimGonderRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ResimGonderRoundedButton.Location = new System.Drawing.Point(22, 12);
-            this.ResimGonderRoundedButton.Name = "ResimGonderRoundedButton";
-            this.ResimGonderRoundedButton.Radius = 15;
-            this.ResimGonderRoundedButton.Size = new System.Drawing.Size(95, 23);
-            this.ResimGonderRoundedButton.TabIndex = 26;
-            this.ResimGonderRoundedButton.Text = "Resim Gönder";
-            this.ResimGonderRoundedButton.UseMnemonic = false;
-            this.ResimGonderRoundedButton.UseVisualStyleBackColor = true;
-            this.ResimGonderRoundedButton.Click += new System.EventHandler(this.ResimGonderRoundedButton_Click);
-            // 
-            // KameraAcRoundedButton
-            // 
-            this.KameraAcRoundedButton.Enabled = false;
-            this.KameraAcRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.KameraAcRoundedButton.Location = new System.Drawing.Point(173, 12);
-            this.KameraAcRoundedButton.Name = "KameraAcRoundedButton";
-            this.KameraAcRoundedButton.Radius = 15;
-            this.KameraAcRoundedButton.Size = new System.Drawing.Size(94, 23);
-            this.KameraAcRoundedButton.TabIndex = 26;
-            this.KameraAcRoundedButton.Text = "Kamera Aç";
-            this.KameraAcRoundedButton.UseMnemonic = false;
-            this.KameraAcRoundedButton.UseVisualStyleBackColor = true;
-            this.KameraAcRoundedButton.Click += new System.EventHandler(this.KameraAcRoundedButton_Click);
             // 
             // MikrofonAcRoundedButton
             // 
@@ -178,6 +107,68 @@
             this.MikrofonAcRoundedButton.UseMnemonic = false;
             this.MikrofonAcRoundedButton.UseVisualStyleBackColor = true;
             this.MikrofonAcRoundedButton.Click += new System.EventHandler(this.MikrofonAcRoundedButton_Click);
+            // 
+            // KameraAcRoundedButton
+            // 
+            this.KameraAcRoundedButton.Enabled = false;
+            this.KameraAcRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.KameraAcRoundedButton.Location = new System.Drawing.Point(173, 12);
+            this.KameraAcRoundedButton.Name = "KameraAcRoundedButton";
+            this.KameraAcRoundedButton.Radius = 15;
+            this.KameraAcRoundedButton.Size = new System.Drawing.Size(94, 23);
+            this.KameraAcRoundedButton.TabIndex = 26;
+            this.KameraAcRoundedButton.Text = "Kamera Aç";
+            this.KameraAcRoundedButton.UseMnemonic = false;
+            this.KameraAcRoundedButton.UseVisualStyleBackColor = true;
+            this.KameraAcRoundedButton.Click += new System.EventHandler(this.KameraAcRoundedButton_Click);
+            // 
+            // ResimGonderRoundedButton
+            // 
+            this.ResimGonderRoundedButton.BackColor = System.Drawing.SystemColors.Control;
+            this.ResimGonderRoundedButton.Enabled = false;
+            this.ResimGonderRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.ResimGonderRoundedButton.Location = new System.Drawing.Point(22, 12);
+            this.ResimGonderRoundedButton.Name = "ResimGonderRoundedButton";
+            this.ResimGonderRoundedButton.Radius = 15;
+            this.ResimGonderRoundedButton.Size = new System.Drawing.Size(95, 23);
+            this.ResimGonderRoundedButton.TabIndex = 26;
+            this.ResimGonderRoundedButton.Text = "Resim Gönder";
+            this.ResimGonderRoundedButton.UseMnemonic = false;
+            this.ResimGonderRoundedButton.UseVisualStyleBackColor = true;
+            this.ResimGonderRoundedButton.Click += new System.EventHandler(this.ResimGonderRoundedButton_Click);
+            // 
+            // CikisYapRoundedButton
+            // 
+            this.CikisYapRoundedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CikisYapRoundedButton.BackColor = System.Drawing.SystemColors.Control;
+            this.CikisYapRoundedButton.Enabled = false;
+            this.CikisYapRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.CikisYapRoundedButton.Location = new System.Drawing.Point(504, 12);
+            this.CikisYapRoundedButton.Name = "CikisYapRoundedButton";
+            this.CikisYapRoundedButton.Radius = 15;
+            this.CikisYapRoundedButton.Size = new System.Drawing.Size(94, 23);
+            this.CikisYapRoundedButton.TabIndex = 24;
+            this.CikisYapRoundedButton.Text = "Çıkış Yap";
+            this.CikisYapRoundedButton.UseMnemonic = false;
+            this.CikisYapRoundedButton.UseVisualStyleBackColor = true;
+            this.CikisYapRoundedButton.Click += new System.EventHandler(this.CikisYapRoundedButton_Click);
+            // 
+            // MesajGonderRoundedButton
+            // 
+            this.MesajGonderRoundedButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MesajGonderRoundedButton.Enabled = false;
+            this.MesajGonderRoundedButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.MesajGonderRoundedButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.MesajGonderRoundedButton.Location = new System.Drawing.Point(144, 410);
+            this.MesajGonderRoundedButton.Name = "MesajGonderRoundedButton";
+            this.MesajGonderRoundedButton.Radius = 15;
+            this.MesajGonderRoundedButton.Size = new System.Drawing.Size(72, 25);
+            this.MesajGonderRoundedButton.TabIndex = 14;
+            this.MesajGonderRoundedButton.Text = "Gönder";
+            this.MesajGonderRoundedButton.UseMnemonic = false;
+            this.MesajGonderRoundedButton.UseVisualStyleBackColor = true;
+            this.MesajGonderRoundedButton.Click += new System.EventHandler(this.MesajGonderRoundedButton_Click);
             // 
             // MainForm
             // 
@@ -200,15 +191,14 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnmesajgonder;
         private System.Windows.Forms.TextBox textboxMesaj;
         private System.Windows.Forms.GroupBox ChatBoxGroupBox;
-        private System.Windows.Forms.RichTextBox RichTextBox;
         private System.Windows.Forms.FlowLayoutPanel FlowLayoutPanel;
         private Views.Events.RoundedButton CikisYapRoundedButton;
         private Views.Events.RoundedButton ResimGonderRoundedButton;
         private Views.Events.RoundedButton KameraAcRoundedButton;
         private Views.Events.RoundedButton MikrofonAcRoundedButton;
         private Views.Events.RoundedButton MesajGonderRoundedButton;
+        private System.Windows.Forms.FlowLayoutPanel DataflowLayoutPanel;
     }
 }

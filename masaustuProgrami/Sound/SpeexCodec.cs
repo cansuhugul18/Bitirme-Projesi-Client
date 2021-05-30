@@ -36,8 +36,8 @@ namespace masaustuProgrami.Sound
             var encoded = new byte[bytesWritten]; //sıkıştırılmış byte dizisi
             Array.Copy(outputBufferTemp, 0, encoded, 0, bytesWritten);
             ShiftLeftoverSamplesDown(samplesToEncode);
-           // Debug.WriteLine(
-             //   $"NSpeex: In {length} bytes, encoded {bytesWritten} bytes [enc frame size = {encoder.FrameSize}]");
+            Debug.WriteLine(
+               $"NSpeex: In {length} bytes, encoded {bytesWritten} bytes [enc frame size = {encoder.FrameSize}]");
             return encoded;
         }
 
@@ -62,9 +62,9 @@ namespace masaustuProgrami.Sound
             int bytesDecoded = samplesDecoded * 2;
             var decoded = new byte[bytesDecoded];
             Array.Copy(outputBufferTemp, 0, decoded, 0, bytesDecoded);
-          //  Debug.WriteLine(
-            //    $"NSpeex: In {length} bytes, decoded {bytesDecoded} bytes [dec frame size = {decoder.FrameSize}]");
-            //Console.WriteLine("" + decoded);
+            Debug.WriteLine(
+              $"NSpeex: In {length} bytes, decoded {bytesDecoded} bytes [dec frame size = {decoder.FrameSize}]");
+            Console.WriteLine("" + decoded);
             return decoded;
         }
 

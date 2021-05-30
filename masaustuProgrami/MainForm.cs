@@ -74,27 +74,27 @@ namespace masaustuProgrami
 
         public void PrintMessage(string message)
         {
-            if (RichTextBox.InvokeRequired)
+            DataflowLayoutPanel.Invoke((MethodInvoker)delegate
             {
-                var @delegate = new PutTextDelegate(PrintMessage);
-                RichTextBox.Invoke(@delegate, message);
-            }
-            else
+                DataflowLayoutPanel.Controls.Add(new MessageUserControl(message));
+            });
+        }
+
+        public void PrintMessage(string username,string message)
+        {
+            DataflowLayoutPanel.Invoke((MethodInvoker)delegate
             {
-                RichTextBox.AppendText(message + "\n");
-            }
+                DataflowLayoutPanel.Controls.Add(new MessageUserControl(username,message));
+            });
         }
 
         #endregion
 
         #region Events
 
-        
-
         public void Baglan(long roomId, string username)
-        {
-            MainForm.instance.Text = username+"-"+roomId.ToString();
-
+        {        
+            MainForm.instance.Text= roomId.ToString() + " No'lu Odaya Hoşgeldin "+ username;
             UserConnected(roomId, username);
 
             if (!Client.IsConnected)
@@ -133,8 +133,7 @@ namespace masaustuProgrami
                 CikisYapRoundedButton.Enabled = false;
 
                 textboxMesaj.Clear();
-                RichTextBox.Clear();
-
+                FlowLayoutPanel.Controls.Clear();
 
                 if (CameraHelper.IsOpen)
                     CameraHelper.Close();
@@ -148,7 +147,7 @@ namespace masaustuProgrami
       
         private void TextboxMesajTextChanged(object sender, EventArgs e)
         {
-            btnmesajgonder.Enabled = textboxMesaj.Text.Length > 0;
+            MesajGonderRoundedButton.Enabled = textboxMesaj.Text.Length > 0;
         }
 
         private void textboxMesaj_KeyDown(object sender, KeyEventArgs e)
@@ -165,16 +164,14 @@ namespace masaustuProgrami
             if (dialog.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            Bitmap bitmap = new Bitmap(Image.FromFile(dialog.FileName));
-            //UserCameraOutput.Image = bitmap;
-            Client.Send(DataTypes.Image, Image.FromFile(dialog.FileName));
+            Image image =Image.FromFile (dialog.FileName);
+           // Bitmap bitmap = new Bitmap(Image.FromFile(dialog.FileName));
+            DataflowLayoutPanel.Invoke((MethodInvoker)delegate
+            {
+                DataflowLayoutPanel.Controls.Add(new ImageUserControl(UserInfo.Username, image));
+            });
 
-            /*
-            Bitmap oldImage = new Bitmap(@"C:\Users\Cansu\Desktop\a.png");
-            Bitmap newImage = new Bitmap(@"C:\Users\Cansu\Desktop\b.png");
-            ImageProcessing.Instance.CompareBitmap(oldImage, newImage);
-
-            */
+            Client.Send(DataTypes.Image, image);       
 
         }
 
@@ -197,14 +194,11 @@ namespace masaustuProgrami
         }
         
         private void MesajGonderRoundedButton_Click(object sender, EventArgs e)
-        {
-            // send veri tipi ve veri alıyor
+        {           
+            DataflowLayoutPanel.Controls.Add(new MessageUserControl(UserInfo.Username, textboxMesaj.Text));
             Client.Send(DataTypes.String, textboxMesaj.Text);
 
-            RichTextBox.AppendText("" + UserInfo.Username + " : " + textboxMesaj.Text + "\n");
-
             textboxMesaj.Clear();
-
             textboxMesaj.Focus();
         }
         private void KameraAcRoundedButton_Click(object sender, EventArgs e)
@@ -219,6 +213,7 @@ namespace masaustuProgrami
 
         private void ClientOnDataRead(HeaderData headerData, object data)
         {
+
             switch (headerData.DataType)
             {
                 case DataTypes.None:
@@ -227,12 +222,21 @@ namespace masaustuProgrami
 
                     var userInfo = Users[headerData.Id]; // Sozlukte olmayan bir Id ye erişmeye çalışırsan hata verir.
 
-                    PrintMessage(userInfo.Username + ": " + (string)data);
+                    DataflowLayoutPanel.Invoke((MethodInvoker)delegate
+                    {
+                        DataflowLayoutPanel.Controls.Add(new MessageUserControl(userInfo.Username,(string)data));
+                    });
                     break;
 
                 case DataTypes.Image:
 
-                    UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)data);
+                    DataflowLayoutPanel.Invoke((MethodInvoker)delegate
+                    {
+                        DataflowLayoutPanel.Controls.Add(new ImageUserControl(Users[headerData.Id].Username, (Image)data));
+
+                    });
+
+                   // UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)data);
 
                     break;
 
@@ -257,9 +261,9 @@ namespace masaustuProgrami
                         Users.Add(userinfo.UserId, userinfo);
                         SoundHelper.Instance.AddUser(userinfo);
 
-                        PrintMessage(userinfo.Username + " odaya katıldı.");
-
                         UserViewController.AddUser(userinfo);
+
+                        PrintMessage(userinfo.Username + " odaya katıldı.");
                     }
                     catch (Exception error)
                     {
@@ -363,5 +367,7 @@ namespace masaustuProgrami
 
             
         }
+
+       
     }
 }

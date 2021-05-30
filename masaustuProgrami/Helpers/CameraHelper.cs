@@ -192,7 +192,7 @@ namespace masaustuProgrami.Helpers
                 return;
             }
 
-            if (frameCount++ % 3 != 0)
+            if (frameCount++ % 20 != 0)
                 return;
 
             newimage = (Bitmap)eventArgs.Frame.Clone();
