@@ -67,6 +67,8 @@ namespace DataCore
                     return (byte[]) data;
                 case DataTypes.PixelData:
                     return (byte[])data;
+                case DataTypes.Frame:
+                    return ((Image)data).ToByteArray();
                 case DataTypes.UserInfo:
                     return ((UserInfo)data).ToByteArray();
             }
@@ -88,6 +90,8 @@ namespace DataCore
                     return data;
                 case DataTypes.PixelData:
                     return data;
+                case DataTypes.Frame:
+                    return data.ToImage();
                 case DataTypes.UserInfo:
                     return UserInfo.FromByteArray(data);
             }

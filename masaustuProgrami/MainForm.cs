@@ -218,6 +218,7 @@ namespace masaustuProgrami
             {
                 case DataTypes.None:
                     throw new ArgumentException("Gecersiz veri tipi.");
+
                 case DataTypes.String:
 
                     var userInfo = Users[headerData.Id]; // Sozlukte olmayan bir Id ye erişmeye çalışırsan hata verir.
@@ -236,7 +237,6 @@ namespace masaustuProgrami
 
                     });
 
-                   // UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)data);
 
                     break;
 
@@ -270,6 +270,11 @@ namespace masaustuProgrami
                         MessageBox.Show(this, error.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
+                    break;
+
+                case DataTypes.Frame:
+
+                    UserViewController.GetViewModel(headerData.Id)?.ShowImage((Image)data);
                     break;
 
                 default:
@@ -316,7 +321,7 @@ namespace masaustuProgrami
         {
             Console.WriteLine("Frame");
 
-            Client.Send(DataTypes.Image, e.Image);
+            Client.Send(DataTypes.Frame, e.Image);
         }
 
         private void CameraHelper_OnCaptureDeviceStateChanged(object sender, Helpers.Events.CaptureDeviceStateChangedEventArgs e)

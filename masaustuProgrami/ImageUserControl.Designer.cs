@@ -46,12 +46,10 @@ namespace masaustuProgrami
             // 
             // PictureBox
             // 
-            this.PictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.PictureBox.Location = new System.Drawing.Point(19, 34);
             this.PictureBox.Name = "PictureBox";
             this.PictureBox.Size = new System.Drawing.Size(334, 192);
+            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.PictureBox.TabIndex = 1;
             this.PictureBox.TabStop = false;
             // 

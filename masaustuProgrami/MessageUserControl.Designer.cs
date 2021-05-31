@@ -49,7 +49,7 @@ namespace masaustuProgrami
             this.Controls.Add(this.MessageLabel);
             this.Name = "MessageUserControl";
             this.Padding = new System.Windows.Forms.Padding(4);
-            this.Size = new System.Drawing.Size(265, 32);
+            this.Size = new System.Drawing.Size(265, 25);
             this.ResumeLayout(false);
             this.PerformLayout();
 

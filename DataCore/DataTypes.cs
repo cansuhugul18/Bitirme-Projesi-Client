@@ -7,6 +7,7 @@
         Image,
         Sound,
         PixelData,
+        Frame,
         UserInfo
     }
 }
