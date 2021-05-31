@@ -28,7 +28,7 @@ namespace masaustuProgrami
 
         private Client Client { get; set; }
 
-        private Dictionary<long, UserInfo> Users = new Dictionary<long, UserInfo>(); // Bu da burada olmıcak ilerde başka bir sınıf içinde olabilir
+        private Dictionary<long, UserInfo> Users = new Dictionary<long, UserInfo>(); // TODO: ilerde başka bir sınıf içinde olabilir
 
         #endregion
 
@@ -290,7 +290,7 @@ namespace masaustuProgrami
 
             if (CameraHelper.IsOpen)
                 CameraHelper.Close();
-
+                    
             LoginForm.Instance.Close();
         }
 
@@ -356,23 +356,24 @@ namespace masaustuProgrami
             });
         }
 
-
         #endregion
 
         #endregion
 
         private void CikisYapRoundedButton_Click(object sender, EventArgs e)
-        {
-           
+        {         
             UserViewController.RemoveUser(UserInfo);
 
             Users.Remove(ID);
 
             Client.Disconnect();
 
-            
+            Close();
         }
 
-       
+        private void DataflowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
+        {
+            DataflowLayoutPanel.ScrollControlIntoView(e.Control);
+        }
     }
 }

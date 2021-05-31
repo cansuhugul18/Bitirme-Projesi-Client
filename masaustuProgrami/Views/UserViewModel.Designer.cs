@@ -47,7 +47,6 @@ namespace masaustuProgrami.Views
             this.UserNameLabel.TabIndex = 0;
             this.UserNameLabel.Text = "Name";
             this.UserNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.UserNameLabel.Visible = false;
             this.UserNameLabel.MouseEnter += new System.EventHandler(this.Container_MouseEnter);
             this.UserNameLabel.MouseLeave += new System.EventHandler(this.Container_MouseLeave);
             // 

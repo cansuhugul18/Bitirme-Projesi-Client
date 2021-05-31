@@ -46,10 +46,10 @@ namespace masaustuProgrami
             // 
             // PictureBox
             // 
-            this.PictureBox.Location = new System.Drawing.Point(19, 34);
+            this.PictureBox.Location = new System.Drawing.Point(13, 34);
             this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(334, 192);
-            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PictureBox.Size = new System.Drawing.Size(178, 98);
+            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PictureBox.TabIndex = 1;
             this.PictureBox.TabStop = false;
             // 
@@ -61,7 +61,7 @@ namespace masaustuProgrami
             this.Controls.Add(this.UserNameLabel);
             this.Name = "ImageUserControl";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Size = new System.Drawing.Size(368, 235);
+            this.Size = new System.Drawing.Size(196, 137);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

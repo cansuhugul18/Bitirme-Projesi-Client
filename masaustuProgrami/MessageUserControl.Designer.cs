@@ -36,7 +36,7 @@ namespace masaustuProgrami
             // 
             this.MessageLabel.AutoSize = true;
             this.MessageLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessageLabel.Location = new System.Drawing.Point(4, 4);
+            this.MessageLabel.Location = new System.Drawing.Point(2, 2);
             this.MessageLabel.Name = "MessageLabel";
             this.MessageLabel.Padding = new System.Windows.Forms.Padding(5);
             this.MessageLabel.Size = new System.Drawing.Size(10, 23);
@@ -48,8 +48,8 @@ namespace masaustuProgrami
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.MessageLabel);
             this.Name = "MessageUserControl";
-            this.Padding = new System.Windows.Forms.Padding(4);
-            this.Size = new System.Drawing.Size(265, 25);
+            this.Padding = new System.Windows.Forms.Padding(2);
+            this.Size = new System.Drawing.Size(195, 20);
             this.ResumeLayout(false);
             this.PerformLayout();
 
